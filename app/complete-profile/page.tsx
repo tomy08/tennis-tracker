@@ -1,15 +1,45 @@
 import { updateUserProfile } from '@/app/actions'
+import { createClient } from '@/utils/supabase/server'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubmitButton } from '@/components/submit-button'
 import { FormMessage } from '@/components/form-message'
 import { Select } from '@/components/ui/select'
+import { redirect } from 'next/navigation'
 
-export default function CompleteProfile({
+export default async function CompleteProfile({
   searchParams,
 }: {
   searchParams: any
 }) {
+  const supabase = createClient()
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) {
+    console.error('No user is logged in')
+    return
+  }
+
+  const userId = user.id
+
+  const { data, error } = await supabase
+    .from('user')
+    .select('id')
+    .eq('id', userId)
+    .single()
+
+  if (error) {
+    console.error('Error checking user profile:', error)
+    return
+  }
+
+  if (data) {
+    redirect(`/jugador/${userId}`)
+  }
+
   return (
     <form
       className="flex flex-col min-w-64 max-w-64 mx-auto gap-1"
