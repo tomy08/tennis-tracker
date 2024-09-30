@@ -31,11 +31,6 @@ export default async function CompleteProfile({
     .eq('id', userId)
     .single()
 
-  if (error) {
-    console.error('Error checking user profile:', error)
-    return
-  }
-
   if (data) {
     redirect(`/jugador/${userId}`)
   }
