@@ -271,7 +271,7 @@ export function PlayerProfile({
                             return (
                               <div className="bg-white dark:bg-black p-2 border rounded shadow">
                                 <p className="font-bold">{`Match ${payload[0].payload.match}`}</p>
-                                <p>{`Win Rate: ${payload[0]?.value?.toFixed(2) ?? 'N/A'}%`}</p>
+                                <p>{`Win Rate: ${Number(payload[0]?.value).toFixed(2) ?? 'N/A'}%`}</p>
                                 <p>{`Date: ${payload[0].payload.date}`}</p>
                               </div>
                             )
