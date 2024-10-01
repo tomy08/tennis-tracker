@@ -17,5 +17,9 @@ export default async function FindPlayersPage() {
     return <p>No players found.</p>
   }
 
-  return <PlayersList players={players as User[]} />
+  return (
+    <>
+      <PlayersList players={players as User[]} />
+    </>
+  )
 }
