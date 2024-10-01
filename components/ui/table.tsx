@@ -2,8 +2,6 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { redirect } from 'next/navigation'
-
 const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
