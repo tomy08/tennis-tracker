@@ -150,7 +150,12 @@ export function PlayersList({ players }: PlayersListProps) {
               {filteredPlayers.map((player) => (
                 <TableRow key={player.id}>
                   <TableCell className="font-medium">
-                    {player.name} {player.lastname}
+                    <a
+                      href={`/player/${player.id}`}
+                      className="hover:underline"
+                    >
+                      {player.name} {player.lastname}
+                    </a>
                   </TableCell>
                   <TableCell>{player.category}</TableCell>
                   <TableCell>{player.rating}</TableCell>
