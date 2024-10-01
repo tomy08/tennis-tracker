@@ -179,6 +179,6 @@ export const updateUserProfile = async (formData: FormData) => {
     return { error }
   }
 
-  redirect(`/jugador/${userId}`)
+  redirect(`/player/${userId}`)
   return { data }
 }

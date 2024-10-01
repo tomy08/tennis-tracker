@@ -86,7 +86,7 @@ export function PlayersList({ players }: PlayersListProps) {
     <>
       <div className="container mx-auto p-4">
         <h1 className="text-2xl font-bold mb-4">
-          Filtro de Jugadores de Tenis
+          Filter players by name, category, city or neighborhood
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           <Input
@@ -124,16 +124,16 @@ export function PlayersList({ players }: PlayersListProps) {
           />
         </div>
         <Button onClick={applyFilters} className="mb-2">
-          Aplicar Filtros
+          Apply Filters
         </Button>
         <button onClick={clearFilters} className="underline block">
-          Limpiar Filtros
+          Clear Filters
         </button>
       </div>
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
-            Lista de Jugadores de Tenis
+            Players List
           </CardTitle>
         </CardHeader>
         <CardContent>

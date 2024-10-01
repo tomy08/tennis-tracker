@@ -32,7 +32,7 @@ export default async function CompleteProfile({
     .single()
 
   if (data) {
-    redirect(`/jugador/${userId}`)
+    redirect(`/player/${userId}`)
   }
 
   return (
