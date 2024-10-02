@@ -15,19 +15,7 @@ import { Button } from '@/components/ui/button'
 import { Select } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { redirect } from 'next/navigation'
-
-type Player = {
-  category: string | null
-  city: string | null
-  created_at: string
-  email: string | null
-  id: string | null
-  lastname: string | null
-  name: string | null
-  neighborhood: string | null
-  rating: number | null
-  tel: number | null
-}
+import type { Player } from '@/types/player'
 
 type PlayersListProps = {
   players: Player[]

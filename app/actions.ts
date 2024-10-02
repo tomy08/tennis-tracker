@@ -16,7 +16,6 @@ export const signUpAction = async (formData: FormData) => {
     return { error: 'Email and password are required' }
   }
 
-  // Crear usuario en Supabase Auth
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -183,7 +182,7 @@ export const updateUserProfile = async (formData: FormData) => {
   return { data }
 }
 
-const sendFriendRequest = async (friendEmail: string) => {
+export const sendFriendRequest = async (friendEmail: string) => {
   const supabase = createClient()
   const {
     data: { user },
@@ -201,11 +200,10 @@ const sendFriendRequest = async (friendEmail: string) => {
       .insert({ user_id: user?.id, friend_id: friend.id, status: 'pending' })
 
     if (error) console.error(error)
-    else alert('Solicitud enviada')
   }
 }
 
-const acceptFriendRequest = async (friendId: string) => {
+export const acceptFriendRequest = async (friendId: string) => {
   const supabase = createClient()
   const {
     data: { user },
@@ -218,11 +216,9 @@ const acceptFriendRequest = async (friendId: string) => {
     .eq('friend_id', user?.id)
 
   if (error) console.error(error)
-  else alert('Solicitud aceptada')
 }
 
-// Rechazar solicitud
-const rejectFriendRequest = async (friendId: string) => {
+export const rejectFriendRequest = async (friendId: string) => {
   const supabase = createClient()
   const {
     data: { user },
@@ -231,14 +227,13 @@ const rejectFriendRequest = async (friendId: string) => {
   const { error } = await supabase
     .from('friends')
     .delete()
-    .eq('user_id', friendId)
-    .eq('friend_id', user?.id)
+    .or(`user_id.eq.${friendId}, friend_id.eq.${friendId}`)
+    .or(`user_id.eq.${user?.id}, friend_id.eq.${friendId}`)
 
   if (error) console.error(error)
-  else alert('Solicitud rechazada')
 }
 
-const getFriends = async () => {
+export const getFriends = async () => {
   const supabase = createClient()
   const {
     data: { user },
@@ -248,5 +243,8 @@ const getFriends = async () => {
     .select('*')
     .or(`user_id.eq.${user?.id}, friend_id.eq.${user?.id}`)
 
-  return { data, error }
+  if (error) {
+    console.error(error)
+  }
+  return data
 }

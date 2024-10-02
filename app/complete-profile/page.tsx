@@ -53,6 +53,9 @@ export default async function CompleteProfile({
         className="mb-2"
       />
 
+      <Label htmlFor="tel">Phone Number</Label>
+      <Input name="tel" placeholder="Phone Number" required className="mb-2" />
+
       <Label htmlFor="city">City</Label>
       <Input name="city" placeholder="City" required className="mb-2" />
 

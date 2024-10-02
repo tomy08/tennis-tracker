@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -20,6 +20,7 @@ import {
   Cell,
   Legend,
 } from 'recharts'
+import { sendFriendRequest, getFriends } from '@/app/actions'
 interface Match {
   opponent: string
   result: 'win' | 'loss'
@@ -49,12 +50,32 @@ export function PlayerProfile({
   player: Player
 }) {
   const [isFriend, setIsFriend] = useState(false)
+  const [isLogged, setIsLogged] = useState(true)
   const [headToHeadSearch, setHeadToHeadSearch] = useState('')
   const [headToHeadResults, setHeadToHeadResults] = useState<Match[]>([])
 
   const handleAddFriend = () => {
-    setIsFriend(true)
+    sendFriendRequest(player.email || '')
+    alert('Friend request sent')
   }
+
+  useEffect(() => {
+    if (currentUserId == '0') {
+      setIsLogged(false)
+    } else {
+      setIsLogged(true)
+    }
+    const fetchFriends = async () => {
+      const friends = await getFriends()
+      setIsFriend(
+        friends?.some(
+          (friend: any) =>
+            friend.id === player.id && friend.status == 'confirmed'
+        ) ?? false
+      )
+    }
+    fetchFriends()
+  }, [currentUserId, player.id])
 
   const handleHeadToHeadSearch = () => {
     const results = player.matches.filter((match) =>
@@ -139,7 +160,7 @@ export function PlayerProfile({
               Rating: {player.rating}
             </Badge>
           </div>
-          {currentUserId !== player.id && !isFriend && (
+          {currentUserId !== player.id && !isFriend && isLogged && (
             <Button className="ml-auto" onClick={handleAddFriend}>
               Add as Friend
             </Button>
