@@ -12,7 +12,13 @@ import {
 
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Select } from '@/components/ui/select'
+import {
+  Select,
+  SelectTrigger,
+  SelectItem,
+  SelectContent,
+  SelectValue,
+} from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { redirect } from 'next/navigation'
 import type { Player } from '@/types/player'
@@ -85,18 +91,21 @@ export function PlayersList({ players }: PlayersListProps) {
           />
           <Select
             name="category"
-            options={[
-              'Category',
-              'Amateur',
-              'Beginner',
-              'Intermediate',
-              'Advanced',
-              'Professional',
-            ]}
-            onChange={(e) =>
-              setFilters((prev) => ({ ...prev, category: e.target.value }))
+            onValueChange={(value) =>
+              setFilters((prev) => ({ ...prev, category: value }))
             }
-          />
+          >
+            <SelectTrigger>
+              <SelectValue>Category</SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="amateur">Amateur</SelectItem>
+              <SelectItem value="beginner">Beginner</SelectItem>
+              <SelectItem value="intermediate">Intermediate</SelectItem>
+              <SelectItem value="advanced">Advanced</SelectItem>
+              <SelectItem value="professional">Professional</SelectItem>
+            </SelectContent>
+          </Select>
 
           <Input
             placeholder="Ciudad"

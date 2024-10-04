@@ -155,7 +155,7 @@ export const updateUserProfile = async (formData: FormData) => {
       rating = 480
       break
     case 'Professional':
-      rating = 650
+      rating = 700
       break
     default:
       rating = 0

@@ -4,7 +4,13 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubmitButton } from '@/components/submit-button'
 import { FormMessage } from '@/components/form-message'
-import { Select } from '@/components/ui/select'
+import {
+  Select,
+  SelectTrigger,
+  SelectItem,
+  SelectContent,
+  SelectValue,
+} from '@/components/ui/select'
 import { redirect } from 'next/navigation'
 
 export default async function CompleteProfile({
@@ -68,18 +74,18 @@ export default async function CompleteProfile({
       />
 
       <Label htmlFor="category">Category</Label>
-      <Select
-        name="category"
-        options={[
-          'Amateur',
-          'Beginner',
-          'Intermediate',
-          'Advanced',
-          'Professional',
-        ]}
-        required
-        className="mb-2"
-      />
+      <Select name="category" required>
+        <SelectTrigger>
+          <SelectValue placeholder="Select category" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="amateur">Amateur</SelectItem>
+          <SelectItem value="beginner">Beginner</SelectItem>
+          <SelectItem value="intermediate">Intermediate</SelectItem>
+          <SelectItem value="advanced">Advanced</SelectItem>
+          <SelectItem value="professional">Professional</SelectItem>
+        </SelectContent>
+      </Select>
 
       <SubmitButton pendingText="Updating...">Update Profile</SubmitButton>
 
