@@ -70,7 +70,7 @@ export function PlayerProfile({
       setIsFriend(
         friends?.some(
           (friend: any) =>
-            friend.id === player.id && friend.status == 'confirmed'
+            friend.id === player.id && friend.status == 'accepted'
         ) ?? false
       )
     }

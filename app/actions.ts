@@ -129,6 +129,21 @@ export const signOutAction = async () => {
   await supabase.auth.signOut()
   return redirect('/sign-in')
 }
+
+export const getProfile = async (userId: string) => {
+  const supabase = createClient()
+  const { data, error } = await supabase
+    .from('user')
+    .select('*')
+    .eq('id', userId)
+    .single()
+
+  if (error) {
+    console.error(error)
+  }
+  return data
+}
+
 export const updateUserProfile = async (formData: FormData) => {
   const supabase = createClient()
 
