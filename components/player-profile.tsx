@@ -26,6 +26,7 @@ interface Match {
   result: 'win' | 'loss'
   score: string
   date: string
+  isDoubles: boolean
 }
 
 interface Player {
@@ -220,46 +221,102 @@ export function PlayerProfile({
               </div>
             </TabsContent>
             <TabsContent value="matches">
-              <div className="mt-4 space-y-2">
-                {player.matches.map((match, index) => (
-                  <div
-                    key={index}
-                    className="flex justify-between items-center border-b pb-2"
-                  >
-                    <div className="flex-1">
-                      <span className="font-semibold">{match.opponent}</span>
-                    </div>
-                    <div className="flex-1 text-center">
-                      <span
-                        className={
-                          match.result === 'win'
-                            ? 'text-green-500 font-bold'
-                            : 'text-red-500'
-                        }
+              <div className="mt-4">
+                <h3 className="text-xl font-semibold mb-2">Singles Matches</h3>
+                <div className="space-y-2">
+                  {player.matches
+                    .filter((match) => !match.isDoubles) // Filtrar partidos singles
+                    .map((match, index) => (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center border-b pb-2"
                       >
-                        {match.result.toUpperCase()}
-                      </span>
-                    </div>
-                    <div className="flex-1 text-right">
-                      {match.score.split(', ').map((set, idx) => (
-                        <span
-                          key={idx}
-                          className={
-                            parseInt(set.split('-')[0]) >
-                            parseInt(set.split('-')[1])
-                              ? 'text-green-500 mr-2'
-                              : 'text-red-500 mr-2'
-                          }
-                        >
-                          {set}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex-1 text-right">
-                      {new Date(match.date).toLocaleDateString()}
-                    </div>
-                  </div>
-                ))}
+                        <div className="flex-1">
+                          <span className="font-semibold">
+                            {match.opponent}
+                          </span>
+                        </div>
+                        <div className="flex-1 text-center">
+                          <span
+                            className={
+                              match.result === 'win'
+                                ? 'text-green-500 font-bold'
+                                : 'text-red-500'
+                            }
+                          >
+                            {match.result.toUpperCase()}
+                          </span>
+                        </div>
+                        <div className="flex-1 text-right">
+                          {match.score.split(', ').map((set, idx) => (
+                            <span
+                              key={idx}
+                              className={
+                                parseInt(set.split('-')[0]) >
+                                parseInt(set.split('-')[1])
+                                  ? 'text-green-500 mr-2'
+                                  : 'text-red-500 mr-2'
+                              }
+                            >
+                              {set}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex-1 text-right">
+                          {new Date(match.date).toLocaleDateString()}
+                        </div>
+                      </div>
+                    ))}
+                </div>
+
+                <h3 className="text-xl font-semibold mt-6 mb-2">
+                  Doubles Matches
+                </h3>
+                <div className="space-y-2">
+                  {player.matches
+                    .filter((match) => match.isDoubles) // Filtrar partidos dobles
+                    .map((match, index) => (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center border-b pb-2"
+                      >
+                        <div className="flex-1">
+                          <span className="font-semibold">
+                            {match.opponent}
+                          </span>
+                        </div>
+                        <div className="flex-1 text-center">
+                          <span
+                            className={
+                              match.result === 'win'
+                                ? 'text-green-500 font-bold'
+                                : 'text-red-500'
+                            }
+                          >
+                            {match.result.toUpperCase()}
+                          </span>
+                        </div>
+                        <div className="flex-1 text-right">
+                          {match.score.split(', ').map((set, idx) => (
+                            <span
+                              key={idx}
+                              className={
+                                parseInt(set.split('-')[0]) >
+                                parseInt(set.split('-')[1])
+                                  ? 'text-green-500 mr-2'
+                                  : 'text-red-500 mr-2'
+                              }
+                            >
+                              {set}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex-1 text-right">
+                          {new Date(match.date).toLocaleDateString()}
+                        </div>
+                      </div>
+                    ))}
+                </div>
               </div>
             </TabsContent>
             <TabsContent value="performance">

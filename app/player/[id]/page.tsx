@@ -24,155 +24,78 @@ export default async function PlayerPage({ params }: Props) {
     return <p>Error loading player.</p>
   }
 
+  const { data: matchesData, error: matchesError } = await supabase
+    .from('match')
+    .select('*')
+    .or(
+      `player1_id.eq.${id},player2_id.eq.${id},partner1_id.eq.${id},partner2_id.eq.${id}`
+    )
+
+  if (matchesError) {
+    console.error(matchesError)
+    return <p>Error loading player matches.</p>
+  }
+
+  const matches = await Promise.all(
+    matchesData.map(async (match) => {
+      const playerIds = [match.player1_id, match.player2_id]
+
+      if (match.is_doubles) {
+        playerIds.push(match.partner1_id, match.partner2_id)
+      }
+
+      const { data: players, error } = await supabase
+        .from('user')
+        .select('id, name, lastname')
+        .in('id', playerIds)
+
+      if (error) {
+        console.error(error)
+        return <p>Error loading match data.</p>
+      }
+
+      const getPlayerFullName = (id: number) => {
+        const player = players.find((p) => p.id === id)
+        return `${player?.name} ${player?.lastname}`
+      }
+
+      const opponent = match.is_doubles
+        ? `${getPlayerFullName(match.player2_id)} & ${getPlayerFullName(match.partner2_id)}`
+        : getPlayerFullName(match.player2_id)
+
+      const userTeam = match.is_doubles
+        ? `${getPlayerFullName(match.player1_id)} & ${getPlayerFullName(match.partner1_id)}`
+        : getPlayerFullName(match.player1_id)
+
+      const isUserTeam =
+        user?.id === match.player1_id || user?.id === match.partner1_id
+      const result = match.winner_id === match.player1_id ? 'win' : 'loss'
+      const setsLength = match.player1_score.length
+
+      let score = ''
+
+      for (let i = 0; i < setsLength; i++) {
+        score += `${match.player1_score[i]}-${match.player2_score[i]}`
+        if (i < setsLength - 1) {
+          score += ', '
+        }
+      }
+
+      return {
+        opponent: isUserTeam ? opponent : userTeam,
+        result: isUserTeam ? result : result === 'win' ? 'loss' : 'win',
+        score,
+        date: match.date_played,
+        isDoubles: match.is_doubles,
+      }
+    })
+  )
+
+  console.log(matches)
   const player = {
     ...data,
     id: data?.id.toString(),
-    matches: [
-      {
-        opponent: 'Novak Djokovic',
-        result: 'win',
-        score: '6-4, 6-3, 7-6',
-        date: '2023-06-11',
-      },
-      {
-        opponent: 'Roger Federer',
-        result: 'loss',
-        score: '6-7, 6-4, 6-7, 6-7',
-        date: '2023-05-28',
-      },
-      {
-        opponent: 'Daniil Medvedev',
-        result: 'win',
-        score: '6-3, 6-3',
-        date: '2023-05-14',
-      },
-      {
-        opponent: 'Alexander Zverev',
-        result: 'win',
-        score: '6-1, 6-4',
-        date: '2023-05-01',
-      },
-      {
-        opponent: 'Stefanos Tsitsipas',
-        result: 'loss',
-        score: '4-6, 2-6',
-        date: '2023-04-16',
-      },
-      {
-        opponent: 'Carlos Alcaraz',
-        result: 'win',
-        score: '6-4, 4-6, 7-6',
-        date: '2023-04-02',
-      },
-      {
-        opponent: 'Andrey Rublev',
-        result: 'win',
-        score: '6-3, 6-4',
-        date: '2023-03-19',
-      },
-      {
-        opponent: 'Casper Ruud',
-        result: 'win',
-        score: '6-4, 6-4',
-        date: '2023-03-05',
-      },
-      {
-        opponent: 'Felix Auger-Aliassime',
-        result: 'loss',
-        score: '3-6, 6-7',
-        date: '2023-02-19',
-      },
-      {
-        opponent: 'Hubert Hurkacz',
-        result: 'win',
-        score: '7-6, 6-3',
-        date: '2023-02-05',
-      },
-      {
-        opponent: 'Matteo Berrettini',
-        result: 'win',
-        score: '6-4, 6-2',
-        date: '2023-01-22',
-      },
-      {
-        opponent: 'Diego Schwartzman',
-        result: 'win',
-        score: '6-3, 6-4',
-        date: '2023-01-08',
-      },
-      {
-        opponent: 'Rafael Nadal',
-        result: 'loss',
-        score: '4-6, 6-7',
-        date: '2022-12-25',
-      },
-      {
-        opponent: 'Dominic Thiem',
-        result: 'win',
-        score: '6-4, 6-3',
-        date: '2022-12-11',
-      },
-      {
-        opponent: 'Gael Monfils',
-        result: 'win',
-        score: '6-2, 6-3',
-        date: '2022-11-27',
-      },
-      {
-        opponent: 'David Goffin',
-        result: 'win',
-        score: '6-3, 6-4',
-        date: '2022-11-13',
-      },
-      {
-        opponent: 'Stan Wawrinka',
-        result: 'loss',
-        score: '6-7, 6-7',
-        date: '2022-10-30',
-      },
-      {
-        opponent: 'Kei Nishikori',
-        result: 'win',
-        score: '6-4, 6-3',
-        date: '2022-10-16',
-      },
-      {
-        opponent: 'Grigor Dimitrov',
-        result: 'win',
-        score: '6-3, 6-4',
-        date: '2022-10-02',
-      },
-      {
-        opponent: 'Karen Khachanov',
-        result: 'win',
-        score: '6-4, 6-3',
-        date: '2022-09-18',
-      },
-      {
-        opponent: 'Borna Coric',
-        result: 'win',
-        score: '6-3, 6-4',
-        date: '2022-09-04',
-      },
-      {
-        opponent: 'Milos Raonic',
-        result: 'win',
-        score: '6-4, 6-3',
-        date: '2022-08-21',
-      },
-      {
-        opponent: 'John Isner',
-        result: 'win',
-        score: '6-3, 6-4',
-        date: '2022-08-07',
-      },
-      {
-        opponent: 'Nick Kyrgios',
-        result: 'win',
-        score: '6-4, 6-3',
-        date: '2022-07-24',
-      },
-    ],
+    matches,
   }
 
   return <PlayerProfile currentUserId={user?.id ?? '0'} player={player} />
