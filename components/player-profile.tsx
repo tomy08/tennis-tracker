@@ -161,11 +161,6 @@ export function PlayerProfile({
               Rating: {player.rating}
             </Badge>
           </div>
-          {currentUserId !== player.id && !isFriend && isLogged && (
-            <Button className="ml-auto" onClick={handleAddFriend}>
-              Add as Friend
-            </Button>
-          )}
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="info" className="w-full">
