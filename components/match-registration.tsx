@@ -67,6 +67,12 @@ export function MatchRegistration({
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
 
+    for (let i = 0; i < setScores.length; i++) {
+      if (setScores[i].player1 === 0 && setScores[i].player2 === 0) {
+        setSetScores(setScores.slice(0, i))
+      }
+    }
+
     const player1SetsWon = setScores.filter(
       (set) => set.player1 > set.player2
     ).length
@@ -77,9 +83,12 @@ export function MatchRegistration({
 
     if (numberOfSets === '3') {
       const condition =
-        validateSet(setScores[0].player1, setScores[0].player2) &&
-        validateSet(setScores[1].player1, setScores[1].player2) &&
-        validateSet(setScores[2].player1, setScores[2].player2)
+        setScores.length === 3
+          ? validateSet(setScores[0].player1, setScores[0].player2) &&
+            validateSet(setScores[1].player1, setScores[1].player2) &&
+            validateSet(setScores[2].player1, setScores[2].player2)
+          : validateSet(setScores[0].player1, setScores[0].player2) &&
+            validateSet(setScores[1].player1, setScores[1].player2)
 
       if (!condition) {
         const message = {
@@ -125,7 +134,7 @@ export function MatchRegistration({
       try {
         const { data, error } = await supabase
           .from('match')
-          .insert([{ ...matchData }])
+          .insert([matchData])
           .select()
 
         if (error) throw error
