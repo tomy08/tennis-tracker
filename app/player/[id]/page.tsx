@@ -13,7 +13,7 @@ export default async function PlayerPage({ params }: Props) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  const { data, error } = await supabase
+  const { data: userProfile, error } = await supabase
     .from('user')
     .select('*')
     .eq('id', id)
@@ -71,7 +71,8 @@ export default async function PlayerPage({ params }: Props) {
         : getPlayerFullName(match.player1_id)
 
       const isUserTeam =
-        user?.id === match.player1_id || user?.id === match.partner1_id
+        userProfile.id === match.player1_id ||
+        userProfile.id === match.partner1_id
       const result = match.winner_id === match.player1_id ? 'win' : 'loss'
       const setsLength = match.player1_score.length
 
@@ -97,8 +98,8 @@ export default async function PlayerPage({ params }: Props) {
 
   console.log(matches)
   const player = {
-    ...data,
-    id: data?.id.toString(),
+    ...userProfile,
+    id: userProfile?.id.toString(),
     matches,
   }
 
