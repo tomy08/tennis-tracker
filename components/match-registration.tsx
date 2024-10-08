@@ -69,7 +69,11 @@ export function MatchRegistration({
 
     for (let i = 0; i < setScores.length; i++) {
       if (setScores[i].player1 === 0 && setScores[i].player2 === 0) {
-        setSetScores(setScores.slice(0, i))
+        setSetScores((e) => {
+          const newSetScores = [...setScores]
+          newSetScores.splice(i, 1)
+          return newSetScores
+        })
       }
     }
 
@@ -81,38 +85,38 @@ export function MatchRegistration({
       (set) => set.player2 > set.player1
     ).length
 
-    if (numberOfSets === '3') {
-      const condition =
-        setScores.length === 3
-          ? validateSet(setScores[0].player1, setScores[0].player2) &&
-            validateSet(setScores[1].player1, setScores[1].player2) &&
-            validateSet(setScores[2].player1, setScores[2].player2)
-          : validateSet(setScores[0].player1, setScores[0].player2) &&
-            validateSet(setScores[1].player1, setScores[1].player2)
+    // if (numberOfSets === '3') {
+    //   const condition =
+    //     setScores.length === 3
+    //       ? validateSet(setScores[0].player1, setScores[0].player2) &&
+    //         validateSet(setScores[1].player1, setScores[1].player2) &&
+    //         validateSet(setScores[2].player1, setScores[2].player2)
+    //       : validateSet(setScores[0].player1, setScores[0].player2) &&
+    //         validateSet(setScores[1].player1, setScores[1].player2)
 
-      if (!condition) {
-        const message = {
-          error: 'Invalid set scores',
-        }
-        setMessage(message)
-        hasErrors = true
-      }
-    } else {
-      const condition =
-        validateSet(setScores[0].player1, setScores[0].player2) &&
-        validateSet(setScores[1].player1, setScores[1].player2) &&
-        validateSet(setScores[2].player1, setScores[2].player2) &&
-        validateSet(setScores[3].player1, setScores[3].player2) &&
-        validateSet(setScores[4].player1, setScores[4].player2)
+    //   if (!condition) {
+    //     const message = {
+    //       error: 'Invalid set scores',
+    //     }
+    //     setMessage(message)
+    //     hasErrors = true
+    //   }
+    // } else {
+    //   const condition =
+    //     validateSet(setScores[0].player1, setScores[0].player2) &&
+    //     validateSet(setScores[1].player1, setScores[1].player2) &&
+    //     validateSet(setScores[2].player1, setScores[2].player2) &&
+    //     validateSet(setScores[3].player1, setScores[3].player2) &&
+    //     validateSet(setScores[4].player1, setScores[4].player2)
 
-      if (!condition) {
-        const message = {
-          error: 'Invalid set scores',
-        }
-        setMessage(message)
-        hasErrors = true
-      }
-    }
+    //   if (!condition) {
+    //     const message = {
+    //       error: 'Invalid set scores',
+    //     }
+    //     setMessage(message)
+    //     hasErrors = true
+    //   }
+    // }
 
     const matchData = {
       player1_id: formData.get('player1'),
