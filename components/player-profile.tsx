@@ -69,10 +69,12 @@ export function PlayerProfile({
     }
     const fetchFriends = async () => {
       const friends = await getFriends()
+
       setIsFriend(
         friends?.some(
           (friend: any) =>
-            friend.id === player.id && friend.status == 'accepted'
+            (friend.friend_id === player.id || friend.user_id === player.id) &&
+            friend.status == 'accepted'
         ) ?? false
       )
     }

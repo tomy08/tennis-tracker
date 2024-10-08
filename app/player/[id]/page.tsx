@@ -96,7 +96,6 @@ export default async function PlayerPage({ params }: Props) {
     })
   )
 
-  console.log(matches)
   const player = {
     ...userProfile,
     id: userProfile?.id.toString(),
