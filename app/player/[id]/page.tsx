@@ -56,15 +56,18 @@ export default async function PlayerPage({ params }: Props) {
 
       const getPlayerFullName = (id: number) => {
         const player = players.find((p) => p.id === id)
+        if (match.is_doubles) {
+          return `${player?.lastname}`
+        }
         return `${player?.name} ${player?.lastname}`
       }
 
       const opponent = match.is_doubles
-        ? `${getPlayerFullName(match.player2_id)} & ${getPlayerFullName(match.partner2_id)}`
+        ? `${getPlayerFullName(match.player2_id)}/${getPlayerFullName(match.partner2_id)}`
         : getPlayerFullName(match.player2_id)
 
       const userTeam = match.is_doubles
-        ? `${getPlayerFullName(match.player1_id)} & ${getPlayerFullName(match.partner1_id)}`
+        ? `${getPlayerFullName(match.player1_id)}/${getPlayerFullName(match.partner1_id)}`
         : getPlayerFullName(match.player1_id)
 
       const isUserTeam =
@@ -83,6 +86,7 @@ export default async function PlayerPage({ params }: Props) {
 
       return {
         opponent: isUserTeam ? opponent : userTeam,
+        partner: isUserTeam ? userTeam : opponent,
         result: isUserTeam ? result : result === 'win' ? 'loss' : 'win',
         score,
         date: match.date_played,

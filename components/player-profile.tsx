@@ -23,6 +23,7 @@ import {
 import { sendFriendRequest, getFriends } from '@/app/actions'
 interface Match {
   opponent: string
+  partner: string | null
   result: 'win' | 'loss'
   score: string
   date: string
@@ -276,7 +277,9 @@ export function PlayerProfile({
                         className="flex justify-between items-center border-b pb-2"
                       >
                         <div className="flex-1">
-                          <span className="font-semibold">
+                          <span className="font-semibold text-sm">
+                            ({match.partner})
+                            <br />
                             {match.opponent}
                           </span>
                         </div>
