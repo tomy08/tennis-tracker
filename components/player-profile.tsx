@@ -221,7 +221,7 @@ export function PlayerProfile({
                 <h3 className="text-xl font-semibold mb-2">Singles Matches</h3>
                 <div className="space-y-2">
                   {player.matches
-                    .filter((match) => !match.isDoubles) // Filtrar partidos singles
+                    .filter((match) => !match.isDoubles)
                     .map((match, index) => (
                       <div
                         key={index}
@@ -270,7 +270,7 @@ export function PlayerProfile({
                 </h3>
                 <div className="space-y-2">
                   {player.matches
-                    .filter((match) => match.isDoubles) // Filtrar partidos dobles
+                    .filter((match) => match.isDoubles)
                     .map((match, index) => (
                       <div
                         key={index}
