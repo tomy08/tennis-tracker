@@ -28,6 +28,12 @@ export async function Header() {
         >
           Find Players
         </Link>
+        <Link
+          className="text-sm font-medium hover:text-primary transition-colors"
+          href="/stats"
+        >
+          Stats
+        </Link>
 
         {user ? (
           <>
