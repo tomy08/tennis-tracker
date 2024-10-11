@@ -6,6 +6,12 @@ import { Input } from '@/components/ui/input'
 import { MapPin, UserPlus, TrendingUp, Award } from 'lucide-react'
 
 export function MainPage() {
+  const handleSubmitLocation = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const location = formData.get('location') as string
+    window.location.href = `/find-players/${location}`
+  }
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
@@ -75,9 +81,13 @@ export function MainPage() {
                 </p>
               </div>
               <div className="w-full max-w-sm space-y-2">
-                <form className="flex space-x-2">
+                <form
+                  className="flex space-x-2"
+                  onSubmit={handleSubmitLocation}
+                >
                   <Input
                     className="max-w-lg flex-1"
+                    name="location"
                     placeholder="Enter your location"
                     type="text"
                   />
