@@ -1,8 +1,7 @@
 import { PlayersList } from '@/components/players-list'
 import { createClient } from '@/utils/supabase/server'
-import type { Database } from '@/types/supabase'
+import { Player } from '@/types/player'
 
-type User = Database['public']['Tables']['user']['Row']
 export default async function FindPlayersPage() {
   const supabase = createClient()
 
@@ -19,7 +18,7 @@ export default async function FindPlayersPage() {
 
   return (
     <>
-      <PlayersList players={players as User[]} />
+      <PlayersList players={players as Player[]} />
     </>
   )
 }

@@ -20,29 +20,8 @@ import {
   Cell,
   Legend,
 } from 'recharts'
-import { sendFriendRequest, getFriends } from '@/app/actions'
-interface Match {
-  opponent: string
-  partner: string | null
-  result: 'win' | 'loss'
-  score: string
-  date: string
-  isDoubles: boolean
-}
-
-interface Player {
-  id: string | null
-  name: string | null
-  lastname: string | null
-  email: string | null
-  tel: number | null
-  category: string | null
-  city: string | null
-  neighborhood: string | null
-  rating: number | null
-  created_at: string
-  matches: Match[]
-}
+import { getFriends } from '@/app/actions'
+import { Match, Player } from '@/types/player'
 
 export function PlayerProfile({
   currentUserId,
@@ -52,21 +31,11 @@ export function PlayerProfile({
   player: Player
 }) {
   const [isFriend, setIsFriend] = useState(false)
-  const [isLogged, setIsLogged] = useState(true)
+
   const [headToHeadSearch, setHeadToHeadSearch] = useState('')
   const [headToHeadResults, setHeadToHeadResults] = useState<Match[]>([])
 
-  const handleAddFriend = () => {
-    sendFriendRequest(player.email || '')
-    alert('Friend request sent')
-  }
-
   useEffect(() => {
-    if (currentUserId == '0') {
-      setIsLogged(false)
-    } else {
-      setIsLogged(true)
-    }
     const fetchFriends = async () => {
       const friends = await getFriends()
 
@@ -82,17 +51,17 @@ export function PlayerProfile({
   }, [currentUserId, player.id])
 
   const handleHeadToHeadSearch = () => {
-    const results = player.matches.filter((match) =>
+    const results = player.matches!.filter((match) =>
       match.opponent.toLowerCase().includes(headToHeadSearch.toLowerCase())
     )
     setHeadToHeadResults(results)
   }
 
-  const wins = player.matches.filter((m) => m.result === 'win').length
-  const losses = player.matches.filter((m) => m.result === 'loss').length
+  const wins = player.matches!.filter((m) => m.result === 'win').length
+  const losses = player.matches!.filter((m) => m.result === 'loss').length
 
   const winRate = (wins / (wins + losses)) * 100
-  const maxWinningStreak = player.matches.reduce(
+  const maxWinningStreak = player.matches!.reduce(
     (acc, match) => {
       if (match.result === 'win') {
         acc.current += 1
@@ -110,10 +79,10 @@ export function PlayerProfile({
     return (wins / matches.length) * 100
   }
 
-  const last30MatchesPerformance = player.matches
-    .slice(0, 30)
+  const last30MatchesPerformance = player
+    .matches!.slice(0, 30)
     .map((match, index) => {
-      const relevantMatches = player.matches.slice(index, index + 10)
+      const relevantMatches = player.matches!.slice(index, index + 10)
       return {
         match: index + 1,
         winRate: calculateWinRate(relevantMatches),
@@ -124,7 +93,7 @@ export function PlayerProfile({
   const calculateSetStats = () => {
     let setsWon = 0
     let setsLost = 0
-    player.matches.forEach((match) => {
+    player.matches!.forEach((match) => {
       const sets = match.score.split(', ')
       sets.forEach((set) => {
         const [playerScore, opponentScore] = set.split('-').map(Number)
@@ -222,8 +191,8 @@ export function PlayerProfile({
               <div className="mt-4">
                 <h3 className="text-xl font-semibold mb-2">Singles Matches</h3>
                 <div className="space-y-2">
-                  {player.matches
-                    .filter((match) => !match.isDoubles)
+                  {player
+                    .matches!.filter((match) => !match.isDoubles)
                     .map((match, index) => (
                       <div
                         key={index}
@@ -271,8 +240,8 @@ export function PlayerProfile({
                   Doubles Matches
                 </h3>
                 <div className="space-y-2">
-                  {player.matches
-                    .filter((match) => match.isDoubles)
+                  {player
+                    .matches!.filter((match) => match.isDoubles)
                     .map((match, index) => (
                       <div
                         key={index}
