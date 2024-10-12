@@ -293,50 +293,63 @@ export function PlayerProfile({
             </TabsContent>
             <TabsContent value="performance">
               <div className="mt-4 space-y-8">
-                <div className="h-80">
-                  <h3 className="text-lg font-semibold mb-2">
-                    Win Rate (Last 30 Matches)
-                  </h3>
-                  <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={last30MatchesPerformance}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="match"
-                        label={{
-                          value: 'Last 30 Matches',
-                          position: 'insideBottom',
-                          offset: -5,
-                        }}
-                      />
-                      <YAxis
-                        label={{
-                          value: 'Win Rate (%)',
-                          angle: -90,
-                          position: 'insideLeft',
-                        }}
-                      />
-                      <Tooltip
-                        content={({ active, payload }) => {
-                          if (active && payload && payload.length) {
-                            return (
-                              <div className="bg-white dark:bg-black p-2 border rounded shadow">
-                                <p className="font-bold">{`Match ${payload[0].payload.match}`}</p>
-                                <p>{`Win Rate: ${Number(payload[0]?.value).toFixed(2) ?? 'N/A'}%`}</p>
-                                <p>{`Date: ${payload[0].payload.date}`}</p>
-                              </div>
-                            )
-                          }
-                          return null
-                        }}
-                      />
-                      <Line
-                        type="monotone"
-                        dataKey="winRate"
-                        stroke="#8884d8"
-                      />
-                    </LineChart>
-                  </ResponsiveContainer>
-                </div>
+                {player.matches!.length >= 30 ? (
+                  <div className="h-80">
+                    <h3 className="text-lg font-semibold mb-2">
+                      Win Rate (Last 30 Matches)
+                    </h3>
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={last30MatchesPerformance}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis
+                          dataKey="match"
+                          label={{
+                            value: 'Last 30 Matches',
+                            position: 'insideBottom',
+                            offset: -5,
+                          }}
+                        />
+                        <YAxis
+                          label={{
+                            value: 'Win Rate (%)',
+                            angle: -90,
+                            position: 'insideLeft',
+                          }}
+                        />
+                        <Tooltip
+                          content={({ active, payload }) => {
+                            if (active && payload && payload.length) {
+                              return (
+                                <div className="bg-white dark:bg-black p-2 border rounded shadow">
+                                  <p className="font-bold">{`Match ${payload[0].payload.match}`}</p>
+                                  <p>{`Win Rate: ${Number(payload[0]?.value).toFixed(2) ?? 'N/A'}%`}</p>
+                                  <p>{`Date: ${payload[0].payload.date}`}</p>
+                                </div>
+                              )
+                            }
+                            return null
+                          }}
+                        />
+                        <Line
+                          type="monotone"
+                          dataKey="winRate"
+                          stroke="#8884d8"
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                ) : (
+                  <div>
+                    <h3 className="text-lg font-semibold mb-2">
+                      Not enough matches to display performance
+                    </h3>
+                    <p className="text-sm text-red-500">
+                      You must have played more than 30 matches to see the win
+                      rate in the last 30 matches chart.
+                    </p>
+                  </div>
+                )}
+
                 <div className="h-80">
                   <h3 className="text-lg font-semibold mb-2">
                     Sets Won vs Sets Lost
