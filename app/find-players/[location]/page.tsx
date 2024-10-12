@@ -1,6 +1,7 @@
 import { PlayersList } from '@/components/players-list'
 import { createClient } from '@/utils/supabase/server'
 import type { Database } from '@/types/supabase'
+import { Player } from '@/types/player'
 
 type User = Database['public']['Tables']['user']['Row']
 type Props = {
@@ -33,7 +34,7 @@ export default async function FindPlayersLocationPage({ params }: Props) {
               player.city!.toLowerCase().includes(locationFiltered) ||
               player.neighborhood!.toLowerCase().includes(locationFiltered)
             )
-          }) as User[]
+          }) as Player[]
         }
       />
     </>
