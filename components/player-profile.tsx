@@ -80,7 +80,10 @@ export function PlayerProfile({
   }
 
   const last30MatchesPerformance = player
-    .matches!.slice(0, 30)
+    .matches!.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    )
+    .slice(0, 30)
     .map((match, index) => {
       const relevantMatches = player.matches!.slice(index, index + 10)
       return {
