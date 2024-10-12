@@ -91,7 +91,7 @@ export function MatchRegistration({
       is_doubles: isDoubles,
       partner1_id: isDoubles ? formData.get('partner1') : null,
       partner2_id: isDoubles ? formData.get('partner2') : null,
-      date_played: formData.get('datePlayed') ?? new Date().toISOString(),
+      date_played: formData.get('datePlayed'),
       player1_score: [...setScores].map((set) => set.player1),
       player2_score: [...setScores].map((set) => set.player2),
       created_at: new Date().toISOString(),
@@ -231,6 +231,8 @@ export function MatchRegistration({
             <div key={index} className="flex space-x-2 mt-2">
               <Input
                 type="number"
+                min={0}
+                max={7}
                 value={setScore.player1}
                 onChange={(e) =>
                   handleSetScoreChange(
@@ -243,6 +245,8 @@ export function MatchRegistration({
               />
               <Input
                 type="number"
+                min={0}
+                max={7}
                 value={setScore.player2}
                 onChange={(e) =>
                   handleSetScoreChange(
