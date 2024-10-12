@@ -78,7 +78,10 @@ export function LoggedInDashboard({
   ]
 
   const last30MatchesPerformance = player
-    .matches!.slice(0, 30)
+    .matches!.sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    )
+    .slice(0, 30)
     .map((match, index) => {
       const relevantMatches = player.matches!.slice(index, index + 10)
       return {
@@ -90,6 +93,7 @@ export function LoggedInDashboard({
 
   const last30MatchesPerformanceSingles = player.matches
     ?.filter((match) => !match.isDoubles)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .slice(0, 30)
     .map((match, index) => {
       const relevantMatches = player
@@ -104,11 +108,13 @@ export function LoggedInDashboard({
 
   const last30MatchesPerformanceDoubles = player.matches
     ?.filter((match) => match.isDoubles)
+    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
     .slice(0, 30)
     .map((match, index) => {
       const relevantMatches = player
         .matches!.filter((match) => match.isDoubles)
         .slice(index, index + 10)
+
       return {
         match: index + 1,
         winRate: calculateWinRate(relevantMatches),
@@ -120,10 +126,11 @@ export function LoggedInDashboard({
     const singlesMatch = last30MatchesPerformanceSingles![index]
     const doublesMatch = last30MatchesPerformanceDoubles![index]
     return {
-      match: match.date,
+      match: index + 1,
       singles: singlesMatch?.winRate ?? 0,
       doubles: doublesMatch?.winRate ?? 0,
       overall: match.winRate,
+      matchDate: match.date,
     }
   })
 
@@ -229,7 +236,23 @@ export function LoggedInDashboard({
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="match" />
                   <YAxis />
-                  <Tooltip />
+                  <Tooltip
+                    content={({ active, payload }) => {
+                      if (active && payload && payload.length) {
+                        return (
+                          <div className="bg-white dark:bg-black p-2 border rounded shadow">
+                            <p className="font-bold">{`Match ${payload[0].payload.match}`}</p>
+                            <p className="text-[#8884d8]">{`Win Rate overall: ${Number(payload[0]?.value).toFixed(2) ?? 'N/A'}%`}</p>
+                            <p className="text-[#82ca9d]">{`Win Rate singles: ${Number(payload[0]?.payload.singles).toFixed(2) ?? 'N/A'}%`}</p>
+                            <p className="text-[#ffc658]">{`Win Rate doubles: ${Number(payload[0]?.payload.doubles).toFixed(2) ?? 'N/A'}%`}</p>
+
+                            <p>{`Date: ${payload[0].payload.matchDate}`}</p>
+                          </div>
+                        )
+                      }
+                      return null
+                    }}
+                  />
                   <Legend />
                   <Line type="monotone" dataKey="singles" stroke="#8884d8" />
                   <Line type="monotone" dataKey="doubles" stroke="#82ca9d" />
