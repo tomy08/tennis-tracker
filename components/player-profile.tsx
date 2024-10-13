@@ -195,7 +195,11 @@ export function PlayerProfile({
                 <h3 className="text-xl font-semibold mb-2">Singles Matches</h3>
                 <div className="space-y-2">
                   {player
-                    .matches!.filter((match) => !match.isDoubles)
+                    .matches!.sort(
+                      (a, b) =>
+                        new Date(b.date).getTime() - new Date(a.date).getTime()
+                    )
+                    .filter((match) => !match.isDoubles)
                     .map((match, index) => (
                       <div
                         key={index}
@@ -244,7 +248,11 @@ export function PlayerProfile({
                 </h3>
                 <div className="space-y-2">
                   {player
-                    .matches!.filter((match) => match.isDoubles)
+                    .matches!.sort(
+                      (a, b) =>
+                        new Date(b.date).getTime() - new Date(a.date).getTime()
+                    )
+                    .filter((match) => match.isDoubles)
                     .map((match, index) => (
                       <div
                         key={index}
