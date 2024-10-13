@@ -95,7 +95,28 @@ export default async function Home() {
       id: userProfile?.id.toString(),
       matches,
     }
-    return <LoggedInDashboard user={userProfile} player={player} />
+
+    const { data: topWinners, error: topWinnersError } = await supabase
+      .from('topwinners')
+      .select('*')
+
+    const { data: bestWinRates, error: bestWinRatesError } = await supabase
+      .from('bestwinrates')
+      .select('*')
+
+    if (topWinnersError || bestWinRatesError) {
+      console.error(topWinnersError)
+      console.error(bestWinRatesError)
+      return <p>Error loading top winners or best win rates.</p>
+    }
+
+    return (
+      <LoggedInDashboard
+        player={player}
+        topWinners={topWinners!}
+        bestWinRates={bestWinRates!}
+      />
+    )
   }
   return <MainPage />
 }

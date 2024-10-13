@@ -21,13 +21,17 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042']
 
 type User = Database['public']['Tables']['user']['Row']
 
-export function LoggedInDashboard({
-  user,
-  player,
-}: {
-  user: User
+type Props = {
   player: Player
-}): JSX.Element {
+  topWinners: { name: string; lastname: string; wins: number }[]
+  bestWinRates: { name: string; lastname: string; winrate: string }[]
+}
+
+export function LoggedInDashboard({
+  player,
+  topWinners,
+  bestWinRates,
+}: Props): JSX.Element {
   const wins = player.matches!.filter((m) => m.result === 'win').length
   const losses = player.matches!.filter((m) => m.result === 'loss').length
 
@@ -170,62 +174,78 @@ export function LoggedInDashboard({
   }
 
   const setStats = calculateSetStats()
+
+  const recentMatches = player
+    .matches!.sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    )
+    .slice(0, 5)
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 py-12 px-4 md:px-6">
-        {/* { <Card>
-          <CardHeader>
-            <CardTitle>Recent Matches</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {recentMatches.map((match, index) => (
-                <li key={index} className="flex justify-between items-center">
-                  <span>{match.opponent}</span>
-                  <span
-                    className={
-                      match.result === 'Won' ? 'text-green-500' : 'text-red-500'
-                    }
-                  >
-                    {match.result} ({match.score})
-                  </span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Top Winners This Week</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {topWinners.map((winner, index) => (
-                <li key={index} className="flex justify-between items-center">
-                  <span>{winner.name}</span>
-                  <span className="font-semibold">{winner.wins} wins</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Best Win Rates (Last 30 Matches)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-2">
-              {bestWinRates.map((player, index) => (
-                <li key={index} className="flex justify-between items-center">
-                  <span>{player.name}</span>
-                  <span className="font-semibold">{player.rate}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>} */}
-        <h1 className="text-3xl font-bold mb-6">Your Dashboard</h1>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <Card>
+            <CardHeader>
+              <CardTitle>Recent Matches</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {recentMatches.map((match, index) => (
+                  <li key={index} className="flex justify-between items-center">
+                    <span className="text-sm">{match.opponent}</span>
+                    <span
+                      className={
+                        match.result === 'win'
+                          ? 'text-green-500 text-sm'
+                          : 'text-red-500 text-sm'
+                      }
+                    >
+                      {match.result} ({match.score})
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Top Winners This Week</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {topWinners.slice(0, 5).map((winner, index) => (
+                  <li key={index} className="flex justify-between items-center">
+                    <span>
+                      {winner.name} {winner.lastname}
+                    </span>
+                    <span className="font-semibold">{winner.wins} wins</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Best Win Rates (Last 30 Matches)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {bestWinRates.map((player, index) => (
+                  <li key={index} className="flex justify-between items-center">
+                    <span>
+                      {player.name} {player.lastname}
+                    </span>
+                    <span className="font-semibold">
+                      {Number(player.winrate).toFixed(2)}%
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+          <h1 className="text-3xl font-bold mb-6">Your Dashboard</h1>
+
           <Card className="col-span-full">
             <CardHeader>
               <CardTitle>Win-Rate Last 30 Matches</CardTitle>
