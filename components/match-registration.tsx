@@ -199,7 +199,7 @@ export function MatchRegistration({
                   <SelectContent>
                     {friends.map((friend) => (
                       <SelectItem key={friend.id} value={friend.id ?? ''}>
-                        {friend.name}
+                        {friend.name} {friend.lastname}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -215,7 +215,7 @@ export function MatchRegistration({
                   <SelectContent>
                     {friends.map((friend) => (
                       <SelectItem key={friend.id} value={friend.id ?? ''}>
-                        {friend.name}
+                        {friend.name} {friend.lastname}
                       </SelectItem>
                     ))}
                   </SelectContent>
