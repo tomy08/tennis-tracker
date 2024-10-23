@@ -71,6 +71,7 @@
 main {
   position: relative;
   overflow: hidden; /* Para evitar desbordamientos */
+  z-index: 1;
 }
 
 main::before {
@@ -85,6 +86,6 @@ main::before {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  opacity: 0.005; /* Ajusta la opacidad aquí */
- 
+  opacity: 0.005; 
+  z-index: -1;
 }
