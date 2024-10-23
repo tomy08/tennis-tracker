@@ -79,7 +79,7 @@ export function PlayersList({ players }: PlayersListProps) {
   return (
     <>
       <div className="container mx-auto p-4">
-        <h1 className="text-3xl font-bold mb-4 text-yellow-300">
+        <h1 className="text-3xl font-bold mb-4 text-yellow-400">
           Find your next tennis partner or opponent!
         </h1>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mb-4">
@@ -130,7 +130,7 @@ export function PlayersList({ players }: PlayersListProps) {
       </div>
       <Card className="w-full max-w-4xl mx-auto">
         <CardHeader className='pt-4'>
-          <CardTitle className="text-2xl font-bold text-center text-yellow-200">
+          <CardTitle className="text-2xl font-bold text-center text-yellow-300">
             Players 
             <hr />
           </CardTitle>

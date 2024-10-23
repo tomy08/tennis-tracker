@@ -186,7 +186,7 @@ export function StatsPage() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4 text-yellow-300">Tennis Stats</h1>
+      <h1 className="text-3xl font-bold mb-4 text-yellow-400">Tennis Stats</h1>
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
           <TabsTrigger value="overview">Overview</TabsTrigger>

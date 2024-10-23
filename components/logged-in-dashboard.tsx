@@ -185,8 +185,8 @@ export function LoggedInDashboard({
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 py-12 px-4 md:px-6">
-        <h1 className="text-3xl font-bold mb-8 text-yellow-300">Welcome, {player.name}! 👋</h1>
-        <h2 className="text-2xl font-bold mb-4 text-yellow-200">Reecent Stats</h2>
+        <h1 className="text-3xl font-bold mb-8 text-yellow-400">Welcome, {player.name}! 👋</h1>
+        <h2 className="text-2xl font-bold mb-4 text-yellow-300">Recent Stats</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           
           <Card>
@@ -253,7 +253,7 @@ export function LoggedInDashboard({
               </ul>
             </CardContent>
           </Card>
-          <h2 className="text-2xl font-bold mt-4 text-yellow-200">Your Dashboard</h2>
+          <h2 className="text-2xl font-bold mt-4 text-yellow-300">Your Dashboard</h2>
 
           <Card className="col-span-full">
             <CardHeader>
@@ -389,7 +389,7 @@ export function LoggedInDashboard({
             </CardContent>
           </Card>
         </div>
-        <h2 className="text-2xl font-bold mt-8 mb-4 text-yellow-200">Your Records</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4 text-yellow-300">Your Records</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {personalRecords.map((record, index) => (
             <Card key={index}>
