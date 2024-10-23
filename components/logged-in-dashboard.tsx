@@ -73,7 +73,8 @@ export function LoggedInDashboard({
     { title: 'Losses', value: losses },
     { title: 'Win Rate', value: `${winRate.toFixed(2)}%` },
     {
-      title: 'Win Rate (last 30 matches)',
+      title: 'Win Rate',
+      description: "(last 30 matches)",
       value: `${calculateWinRate(player.matches!.slice(0, 30)).toFixed(2)}%`,
     },
     { title: 'Max Win Streak', value: maxWinningStreak },
@@ -184,12 +185,17 @@ export function LoggedInDashboard({
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 py-12 px-4 md:px-6">
+        <h1 className="text-3xl font-bold mb-8 text-yellow-300">Welcome, {player.name}! 👋</h1>
+        <h2 className="text-2xl font-bold mb-4 text-yellow-200">Reecent Stats</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          
           <Card>
             <CardHeader>
-              <CardTitle>Recent Matches</CardTitle>
+              <CardTitle className='text-xl'>Recent Matches</CardTitle>
+              <hr />
             </CardHeader>
             <CardContent>
+              
               <ul className="space-y-2">
                 {recentMatches.map((match, index) => (
                   <li key={index} className="flex justify-between items-center">
@@ -210,7 +216,8 @@ export function LoggedInDashboard({
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Top Winners This Week</CardTitle>
+              <CardTitle className='text-xl'>Top Winners This Week</CardTitle>
+              <hr />
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
@@ -227,7 +234,9 @@ export function LoggedInDashboard({
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Best Win Rates (Last 30 Matches)</CardTitle>
+              <CardTitle className='text-xl'>Best Win Rates</CardTitle>
+              <p className='text-gray-100 text-md'>(Last 30 Matches)</p>
+              <hr />
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
@@ -244,11 +253,12 @@ export function LoggedInDashboard({
               </ul>
             </CardContent>
           </Card>
-          <h1 className="text-3xl font-bold mb-6">Your Dashboard</h1>
+          <h2 className="text-2xl font-bold mt-4 text-yellow-200">Your Dashboard</h2>
 
           <Card className="col-span-full">
             <CardHeader>
               <CardTitle>Win-Rate Last 30 Matches</CardTitle>
+              <hr />
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -284,10 +294,12 @@ export function LoggedInDashboard({
 
           <Card>
             <CardHeader>
-              <CardTitle>Sets Won/Lost (Singles)</CardTitle>
+              <CardTitle>Sets Won/Lost</CardTitle>
+              <p className='text-lg'>(Singles)</p>
+              <hr />
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={200}>
+              <ResponsiveContainer width="100%" height={225}>
                 <PieChart>
                   <Pie
                     data={setStats.singles}
@@ -295,7 +307,7 @@ export function LoggedInDashboard({
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    outerRadius={80}
+                    outerRadius={70}
                     fill="#8884d8"
                     label
                   >
@@ -314,10 +326,12 @@ export function LoggedInDashboard({
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Sets Won/Lost (Doubles)</CardTitle>
+              <CardTitle>Sets Won/Lost</CardTitle>
+              <p className='text-lg'>(Doubles)</p>
+              <hr />
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={200}>
+              <ResponsiveContainer width="100%" height={225}>
                 <PieChart>
                   <Pie
                     data={setStats.doubles}
@@ -325,7 +339,7 @@ export function LoggedInDashboard({
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    outerRadius={80}
+                    outerRadius={70}
                     fill="#8884d8"
                     label
                   >
@@ -344,10 +358,12 @@ export function LoggedInDashboard({
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Sets Won/Lost (Overall)</CardTitle>
+              <CardTitle>Sets Won/Lost</CardTitle>
+              <p className='text-lg'>(Overall)</p>
+              <hr />
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={200}>
+              <ResponsiveContainer width="100%" height={225}>
                 <PieChart>
                   <Pie
                     data={setStats.overall}
@@ -355,7 +371,7 @@ export function LoggedInDashboard({
                     nameKey="name"
                     cx="50%"
                     cy="50%"
-                    outerRadius={80}
+                    outerRadius={70}
                     fill="#8884d8"
                     label
                   >
@@ -373,12 +389,14 @@ export function LoggedInDashboard({
             </CardContent>
           </Card>
         </div>
-        <h2 className="text-2xl font-bold mt-12 mb-6">Your Records</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4 text-yellow-200">Your Records</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {personalRecords.map((record, index) => (
             <Card key={index}>
               <CardHeader>
                 <CardTitle className="text-sm">{record.title}</CardTitle>
+                <p className="text-gray-100 text-xs">{record.description}</p>
+                <hr />
               </CardHeader>
               <CardContent>
                 <p className="text-2xl font-bold">{record.value}</p>
