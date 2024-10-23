@@ -18,9 +18,10 @@ export function RankingList({ players }: PlayersListProps) {
   return (
     <>
       <Card className="w-full max-w-4xl mx-auto">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold text-center">
+        <CardHeader className="pt-4 pb-2">
+          <CardTitle className="text-2xl font-bold text-yellow-300 text-center">
             Ranking
+            <hr />
           </CardTitle>
         </CardHeader>
         <CardContent>
