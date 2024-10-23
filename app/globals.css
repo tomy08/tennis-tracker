@@ -67,3 +67,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+main {
+  position: relative;
+  overflow: hidden; /* Para evitar desbordamientos */
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("https://images.unsplash.com/photo-1580763850522-504d40a05c50?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cmVkJTIwZGUlMjB0ZW5pc3xlbnwwfHwwfHx8MA%3D%3D");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.005; /* Ajusta la opacidad aquí */
+ 
+}
