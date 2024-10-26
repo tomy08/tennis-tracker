@@ -70,22 +70,22 @@
 
 main {
   position: relative;
-  overflow: hidden; /* Para evitar desbordamientos */
+  overflow: hidden;
   z-index: 1;
 }
 
 main::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("https://images.unsplash.com/photo-1580763850522-504d40a05c50?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8cmVkJTIwZGUlMjB0ZW5pc3xlbnwwfHwwfHx8MA%3D%3D");
+  background-image: url('https://wallpapers.com/images/hd/neon-tennis-ball-4ek0fixrp5vo504r.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  opacity: 0.005; 
+  opacity: 0.01;
   z-index: -1;
 }
