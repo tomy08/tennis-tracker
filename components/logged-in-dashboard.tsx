@@ -74,7 +74,7 @@ export function LoggedInDashboard({
     { title: 'Win Rate', value: `${winRate.toFixed(2)}%` },
     {
       title: 'Win Rate',
-      description: "(last 30 matches)",
+      description: '(last 30 matches)',
       value: `${calculateWinRate(player.matches!.slice(0, 30)).toFixed(2)}%`,
     },
     { title: 'Max Win Streak', value: maxWinningStreak },
@@ -183,19 +183,21 @@ export function LoggedInDashboard({
     .slice(0, 5)
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-background">
       <main className="flex-1 py-12 px-4 md:px-6">
-        <h1 className="text-3xl font-bold mb-8 text-yellow-400">Welcome, {player.name}! 👋</h1>
-        <h2 className="text-2xl font-bold mb-4 text-yellow-300">Recent Stats</h2>
+        <h1 className="text-3xl font-bold mb-8 text-yellow-400">
+          Welcome, {player.name}! 👋
+        </h1>
+        <h2 className="text-2xl font-bold mb-4 text-yellow-300">
+          Recent Stats
+        </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          
           <Card>
             <CardHeader>
-              <CardTitle className='text-xl'>Recent Matches</CardTitle>
+              <CardTitle className="text-xl">Recent Matches</CardTitle>
               <hr />
             </CardHeader>
             <CardContent>
-              
               <ul className="space-y-2">
                 {recentMatches.map((match, index) => (
                   <li key={index} className="flex justify-between items-center">
@@ -216,7 +218,7 @@ export function LoggedInDashboard({
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className='text-xl'>Top Winners This Week</CardTitle>
+              <CardTitle className="text-xl">Top Winners This Week</CardTitle>
               <hr />
             </CardHeader>
             <CardContent>
@@ -234,8 +236,8 @@ export function LoggedInDashboard({
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle className='text-xl'>Best Win Rates</CardTitle>
-              <p className='text-gray-100 text-md'>(Last 30 Matches)</p>
+              <CardTitle className="text-xl">Best Win Rates</CardTitle>
+              <p className="text-gray-100 text-md">(Last 30 Matches)</p>
               <hr />
             </CardHeader>
             <CardContent>
@@ -253,7 +255,9 @@ export function LoggedInDashboard({
               </ul>
             </CardContent>
           </Card>
-          <h2 className="text-2xl font-bold mt-4 text-yellow-300">Your Dashboard</h2>
+          <h2 className="text-2xl font-bold mt-4 text-yellow-300">
+            Your Dashboard
+          </h2>
 
           <Card className="col-span-full">
             <CardHeader>
@@ -295,7 +299,7 @@ export function LoggedInDashboard({
           <Card>
             <CardHeader>
               <CardTitle>Sets Won/Lost</CardTitle>
-              <p className='text-lg'>(Singles)</p>
+              <p className="text-lg">(Singles)</p>
               <hr />
             </CardHeader>
             <CardContent>
@@ -327,7 +331,7 @@ export function LoggedInDashboard({
           <Card>
             <CardHeader>
               <CardTitle>Sets Won/Lost</CardTitle>
-              <p className='text-lg'>(Doubles)</p>
+              <p className="text-lg">(Doubles)</p>
               <hr />
             </CardHeader>
             <CardContent>
@@ -359,7 +363,7 @@ export function LoggedInDashboard({
           <Card>
             <CardHeader>
               <CardTitle>Sets Won/Lost</CardTitle>
-              <p className='text-lg'>(Overall)</p>
+              <p className="text-lg">(Overall)</p>
               <hr />
             </CardHeader>
             <CardContent>
@@ -389,7 +393,9 @@ export function LoggedInDashboard({
             </CardContent>
           </Card>
         </div>
-        <h2 className="text-2xl font-bold mt-8 mb-4 text-yellow-300">Your Records</h2>
+        <h2 className="text-2xl font-bold mt-8 mb-4 text-yellow-300">
+          Your Records
+        </h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {personalRecords.map((record, index) => (
             <Card key={index}>
