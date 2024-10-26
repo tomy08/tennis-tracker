@@ -1,5 +1,5 @@
 import { GeistSans } from 'geist/font/sans'
-import { ThemeProvider } from 'next-themes'
+
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 
@@ -26,20 +26,13 @@ export default function RootLayout({
       className={GeistSans.className + ' dark'}
       suppressHydrationWarning
     >
-      <body className="bg-background text-foreground">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          <main className="min-h-screen flex flex-col items-center">
-            <div className="flex flex-col max-w-5xl p-5">{children}</div>
+      <body className="">
+        <Header />
+        <main className="min-h-screen flex flex-col items-center bg-none">
+          <div className="flex flex-col max-w-5xl p-5 bg-none">{children}</div>
 
-            <Footer />
-          </main>
-        </ThemeProvider>
+          <Footer />
+        </main>
       </body>
     </html>
   )
