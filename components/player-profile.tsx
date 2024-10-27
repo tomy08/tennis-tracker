@@ -363,7 +363,7 @@ export function PlayerProfile({
                   <h3 className="text-lg font-semibold mb-2">
                     Sets Won vs Sets Lost
                   </h3>
-                  <ResponsiveContainer width="100%" height="100%">
+                  <ResponsiveContainer width="100%" height="80%">
                     <PieChart>
                       <Pie
                         data={setStats}
