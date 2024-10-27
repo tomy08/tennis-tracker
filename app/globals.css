@@ -86,6 +86,6 @@ main::before {
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  opacity: 0.01;
+  opacity: 0.025;
   z-index: -1;
 }
