@@ -59,6 +59,14 @@ export default async function CompleteProfile({
         className="mb-2"
       />
 
+      <Label htmlFor="area-code">Phone Area Code</Label>
+      <Input
+        name="area-code"
+        placeholder="Area Code"
+        required
+        className="mb-2"
+      />
+
       <Label htmlFor="tel">Phone Number</Label>
       <Input name="tel" placeholder="Phone Number" required className="mb-2" />
 
