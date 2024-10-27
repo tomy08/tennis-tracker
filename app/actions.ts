@@ -158,6 +158,7 @@ export const updateUserProfile = async (formData: FormData) => {
   const city = formData.get('city') as string
   const neighborhood = formData.get('neighborhood') as string
   const category = formData.get('category') as string
+  const areacode = formData.get('area-code') as string
   const tel = formData.get('tel') as string
 
   let rating = 0
@@ -189,6 +190,7 @@ export const updateUserProfile = async (formData: FormData) => {
       category,
       rating,
       tel,
+      areacode,
     },
   ])
 

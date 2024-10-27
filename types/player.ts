@@ -9,6 +9,7 @@ export type Player = {
   name: string | null
   neighborhood: string | null
   rating: number | null
+  areacode: number | null
   tel: number | null
   matches: Match[] | null
 }

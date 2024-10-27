@@ -165,7 +165,8 @@ export function PlayerProfile({
                 </div>
                 {(isFriend || currentUserId === player.id) && (
                   <div>
-                    <span className="font-semibold">Phone:</span> {player.tel}
+                    <span className="font-semibold">Phone:</span> +
+                    {player.areacode} {player.tel}
                   </div>
                 )}
               </div>
