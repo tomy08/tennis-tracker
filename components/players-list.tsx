@@ -171,7 +171,7 @@ export function PlayersList({ players }: PlayersListProps) {
                   <TableCell>{player.category}</TableCell>
                   <TableCell>{player.rating}</TableCell>
                   <TableCell>
-                    {player.neighborhood}, {player.city}
+                    {player.neighborhood}, {player.city}, {player.country}
                   </TableCell>
                 </TableRow>
               ))}
