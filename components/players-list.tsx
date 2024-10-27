@@ -32,6 +32,7 @@ export function PlayersList({ players }: PlayersListProps) {
   const [filters, setFilters] = useState({
     name: '',
     category: '',
+    country: '',
     city: '',
     neighborhood: '',
   })
@@ -53,6 +54,9 @@ export function PlayersList({ players }: PlayersListProps) {
             player
               .lastname!.toLowerCase()
               .includes(filters.name.toLowerCase())) &&
+          player
+            .country!.toLowerCase()
+            .includes(filters.country.toLowerCase()) &&
           player.city!.toLowerCase().includes(filters.city.toLowerCase()) &&
           player
             .neighborhood!.toLowerCase()
@@ -69,6 +73,7 @@ export function PlayersList({ players }: PlayersListProps) {
     setFilteredPlayers(players)
     setFilters({
       name: '',
+      country: '',
       category: '',
       city: '',
       neighborhood: '',
@@ -84,7 +89,7 @@ export function PlayersList({ players }: PlayersListProps) {
         </h1>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 mb-4">
           <Input
-            placeholder="Nombre"
+            placeholder="Name"
             name="name"
             value={filters.name}
             onChange={handleFilterChange}
@@ -108,30 +113,37 @@ export function PlayersList({ players }: PlayersListProps) {
           </Select>
 
           <Input
-            placeholder="Ciudad"
+            placeholder="Country"
+            name="country"
+            value={filters.country}
+            onChange={handleFilterChange}
+          />
+
+          <Input
+            placeholder="City"
             name="city"
             value={filters.city}
             onChange={handleFilterChange}
           />
           <Input
-            placeholder="Barrio"
+            placeholder="Neighborhood"
             name="neighborhood"
             value={filters.neighborhood}
             onChange={handleFilterChange}
           />
-          <Button onClick={applyFilters} className='max-w-[150px]'>
-          Apply Filters
-        </Button>
+          <Button onClick={applyFilters} className="max-w-[150px]">
+            Apply Filters
+          </Button>
         </div>
-        
+
         <button onClick={clearFilters} className="underline block">
           Clear Filters
         </button>
       </div>
       <Card className="w-full max-w-4xl mx-auto">
-        <CardHeader className='pt-4'>
+        <CardHeader className="pt-4">
           <CardTitle className="text-2xl font-bold text-center text-yellow-300">
-            Players 
+            Players
             <hr />
           </CardTitle>
         </CardHeader>

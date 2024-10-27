@@ -1,5 +1,6 @@
 export type Player = {
   category: string | null
+  country: string | null
   city: string | null
   created_at: string
   email: string | null
