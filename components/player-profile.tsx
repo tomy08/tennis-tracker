@@ -138,8 +138,8 @@ export function PlayerProfile({
           </div>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="info" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
+          <Tabs defaultValue="info">
+            <TabsList className="flex w-full overflow-x-auto whitespace-nowrap">
               <TabsTrigger value="info">Info</TabsTrigger>
               <TabsTrigger value="stats">Stats</TabsTrigger>
               <TabsTrigger value="matches">Matches</TabsTrigger>
