@@ -141,7 +141,7 @@ export function FriendManagement() {
       </CardHeader>
       <CardContent>
         <Tabs defaultValue="search" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="flex w-full overflow-x-auto whitespace-nowrap">
             <TabsTrigger value="search">Search Players</TabsTrigger>
             <TabsTrigger value="received">Requests to Accept</TabsTrigger>
             <TabsTrigger value="sent">Sent Requests</TabsTrigger>
