@@ -134,7 +134,7 @@ export function FriendManagement() {
   }
 
   return (
-    <Card className="w-full max-w-3xl mx-auto">
+    <Card className="w-full max-w-3xl mx-auto sm:scale-100 scale-[0.65]">
       <CardHeader>
         <CardTitle>Manage Friends</CardTitle>
         <CardDescription>Find and manage your tennis friends</CardDescription>

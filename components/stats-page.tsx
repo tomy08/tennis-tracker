@@ -185,7 +185,7 @@ export function StatsPage() {
   }
 
   return (
-    <div className="container mx-auto sm:p-4 p-0 sm:scale-100 scale-[0.6]">
+    <div className="container mx-auto sm:p-4 p-0 sm:scale-100 scale-[0.65]">
       <h1 className="text-3xl font-bold mb-4 text-yellow-400">Tennis Stats</h1>
       <Tabs defaultValue="overview" className="space-y-4">
         <TabsList>
