@@ -114,7 +114,7 @@ export function PlayerProfile({
   const COLORS = ['#0088FE', '#FF8042']
 
   return (
-    <div className="min-h-screen  p-8">
+    <div className="min-h-screen  p-8 sm:scale-100 scale-50">
       <Card className="w-full max-w-6xl mx-auto">
         <CardHeader className="flex flex-row items-center gap-4">
           <Avatar className="w-24 h-24">
